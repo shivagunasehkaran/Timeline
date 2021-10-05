@@ -11,13 +11,13 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     height: 94,
   },
-  nameView: {
+  messageView: {
     justifyContent: "center",
     marginLeft: 20,
   },
-  name: {
+  message: {
     color: ColourPalette.white,
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: STATIC_TEXT.font_family2,
     fontWeight: STATIC_TEXT.font_bold2,
   },
