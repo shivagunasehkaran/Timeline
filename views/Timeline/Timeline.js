@@ -32,8 +32,12 @@ const Timeline = () => {
       : brushingObj.arch;
     obj.interrupted = brushingObj.interrupted;
     obj.message = !brushingObj.interrupted
-      ? `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${STATIC_TEXT.arch_at} ${brushingDate} ${brushingTime}`
-      : `${STATIC_TEXT.micka_didnot_finish} ${brushingObj.arch} ${STATIC_TEXT.arch_at} ${brushingDate} ${brushingTime}`;
+      ? `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${
+          STATIC_TEXT.arch_at
+        } ${moment(brushingDate).format("LL")} ${brushingTime}`
+      : `${STATIC_TEXT.micka_didnot_finish} ${brushingObj.arch} ${
+          STATIC_TEXT.arch_at
+        } ${moment(brushingDate).format("LL")} ${brushingTime}`;
     // push values into array
     finalArray.push(obj);
     initialValue++;
@@ -48,13 +52,13 @@ const Timeline = () => {
   ) => {
     let startTime = moment(
       `${brushingDate} ${brushingTime}`,
-      "DD-MM-YYYY hh:mm:ss"
+      "MM/DD/YYYY hh:mm:ss"
     );
     let endTime = moment(
       `${finalArray[initialValue - 1].brushingDate} ${
         finalArray[initialValue - 1].brushingTime
       }`,
-      "DD-MM-YYYY hh:mm:ss"
+      "MM/DD/YYYY hh:mm:ss"
     );
 
     let minutesDiff = startTime.diff(endTime, "minutes");
@@ -76,9 +80,11 @@ const Timeline = () => {
       !brushingObj.interrupted &&
       finalArray[initialValue - 1].status === TIMELINE_STATUS.INCOMPLETE
     ) {
-      finalArray[
-        initialValue - 1
-      ].message = `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${STATIC_TEXT.arch_at}  ${brushingDate} ${brushingTime}`;
+      finalArray[initialValue - 1].message = `${
+        STATIC_TEXT.micka_has_brushed
+      } ${brushingObj.arch} ${STATIC_TEXT.arch_at}  ${moment(
+        brushingDate
+      ).format("LL")} ${brushingTime}`;
       finalArray[initialValue - 1].status =
         brushingObj.arch === "upper"
           ? TIMELINE_STATUS.UPPER_ARCH
@@ -102,9 +108,8 @@ const Timeline = () => {
     for (let i = 0; i < SortedArray.length; i++) {
       let brushingObj = SortedArray[i];
       let date = brushingObj.date;
-      let brushingDate = moment.utc(date).format("D-MM-YYYY");
+      let brushingDate = moment.utc(date).format("MM/DD/YYYY");
       let brushingTime = moment.utc(date).format("hh:mm:ss");
-
       // initial check
       if (i === 0) {
         // construt status for time line
@@ -130,7 +135,6 @@ const Timeline = () => {
         }
       }
     }
-    console.log("the final array is", finalArray);
     setTimeLineValue(finalArray);
   };
 
