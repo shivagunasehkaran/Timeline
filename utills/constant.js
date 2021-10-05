@@ -1,3 +1,11 @@
+// time line status texts
+export const TIMELINE_STATUS = {
+  UPPER_ARCH: "upper",
+  LOWER_ARCH: "lower",
+  COMPLETED: "completed",
+  INCOMPLETE: "incomplete",
+};
+
 // applicaion text constants
 export const STATIC_TEXT = {
   font_family: "Avenir",
