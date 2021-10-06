@@ -54,6 +54,14 @@ Please go ahead and play around  :)
   - Created Constant file for maintaining all application static text's
   - Created Utill file for date formatting
 
-## outputs :
+  ## Screenshots for the output
 
-## Happy coding ...
+  <div align="center">
+    <img src="https://user-images.githubusercontent.com/11419839/136255732-80a86342-d1ca-4477-89ff-e0eaf16ff001.png" width="300" height="650"</img> 
+  </div>
+  <div align="center">
+    <img src="https://user-images.githubusercontent.com/11419839/136255802-6821f7fc-04a7-4cf7-9dcd-e1acc8be0e83.png" width="300" height="650"</img> 
+  </div>
+
+
+Happy coding ...
