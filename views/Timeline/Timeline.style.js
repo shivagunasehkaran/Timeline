@@ -7,15 +7,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: ColourPalette.white,
   },
-  title: {
-    marginTop: 10,
-    paddingLeft: 17,
-    fontSize: 24,
-    fontFamily: STATIC_TEXT.font_family,
-    fontWeight: STATIC_TEXT.font_bold1,
+  headerView: {
+    height: 30,
+    backgroundColor: ColourPalette.gray,
+    justifyContent: "center",
+    paddingLeft: 20,
   },
-  flatListView: {
-    marginVertical: 10,
-    marginHorizontal: 14,
+  date: {
+    fontSize: 15,
+    fontFamily: STATIC_TEXT.font_family2,
+    color: ColourPalette.black,
   },
 });
