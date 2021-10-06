@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
+import { SectionList, SafeAreaView, View, Text } from "react-native";
 import BrushingDetails from "../../components";
 import { STATIC_TEXT, TIMELINE_STATUS } from "../../utills/Constant";
 import { SortedArray } from "../../utills/DateUtil";
@@ -32,12 +32,8 @@ const Timeline = () => {
       : brushingObj.arch;
     obj.interrupted = brushingObj.interrupted;
     obj.message = !brushingObj.interrupted
-      ? `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${
-          STATIC_TEXT.arch_at
-        } ${moment(brushingDate).format("LL")} ${brushingTime}`
-      : `${STATIC_TEXT.micka_didnot_finish} ${brushingObj.arch} ${
-          STATIC_TEXT.arch_at
-        } ${moment(brushingDate).format("LL")} ${brushingTime}`;
+      ? `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${STATIC_TEXT.arch_at}`
+      : `${STATIC_TEXT.micka_didnot_finish} ${brushingObj.arch} ${STATIC_TEXT.arch_at}`;
     // push values into array
     finalArray.push(obj);
     initialValue++;
@@ -80,11 +76,9 @@ const Timeline = () => {
       !brushingObj.interrupted &&
       finalArray[initialValue - 1].status === TIMELINE_STATUS.INCOMPLETE
     ) {
-      finalArray[initialValue - 1].message = `${
-        STATIC_TEXT.micka_has_brushed
-      } ${brushingObj.arch} ${STATIC_TEXT.arch_at}  ${moment(
-        brushingDate
-      ).format("LL")} ${brushingTime}`;
+      finalArray[
+        initialValue - 1
+      ].message = `${STATIC_TEXT.micka_has_brushed} ${brushingObj.arch} ${STATIC_TEXT.arch_at}`;
       finalArray[initialValue - 1].status =
         brushingObj.arch === "upper"
           ? TIMELINE_STATUS.UPPER_ARCH
@@ -135,7 +129,30 @@ const Timeline = () => {
         }
       }
     }
-    setTimeLineValue(finalArray);
+    // group array for section list
+    getGroupData(finalArray);
+  };
+
+  // use reduce to group data based date.
+  const getGroupData = (finalArray) => {
+    const groupData = finalArray.reduce((groups, data) => {
+      const date = data.brushingDate;
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(data);
+      return groups;
+    }, {});
+
+    // Edit: to add it in the array format instead
+    const groupArrays = Object.keys(groupData).map((date) => {
+      return {
+        date,
+        data: groupData[date],
+      };
+    });
+    console.log("SORTED ARRAY : " + JSON.stringify(groupArrays));
+    setTimeLineValue(groupArrays);
   };
 
   // child render item
@@ -144,21 +161,23 @@ const Timeline = () => {
   );
 
   // child KeyExtractor
-  const childListKeyExtractor = (item, index) => String(index);
+  const childListKeyExtractor = (item, index) => item + index;
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <View style={styles.flatListView}>
-          <FlatList
-            data={timeLineValue}
-            showsVerticalScrollIndicator={false}
-            renderItem={childListRenderItem}
-            keyExtractor={childListKeyExtractor}
-          />
-        </View>
-      </SafeAreaView>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <SectionList
+        sections={timeLineValue}
+        keyExtractor={childListKeyExtractor}
+        renderItem={childListRenderItem}
+        renderSectionHeader={({ section: { date } }) => (
+          <View style={styles.headerView}>
+            <Text style={styles.date}>
+              {moment(date).format("dddd D MMM yyyy")}
+            </Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
