@@ -4,19 +4,27 @@ import { STATIC_TEXT } from "../utills/Constant";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 80,
     flexDirection: "row",
-    marginVertical: 5,
-    backgroundColor: ColourPalette.lightGreen,
-    borderRadius: 5,
-    height: 94,
+    borderBottomWidth: 0.2,
+  },
+  dateView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  date: {
+    fontSize: 15,
+    fontFamily: STATIC_TEXT.font_family2,
+    color: ColourPalette.lightGreen,
   },
   messageView: {
+    flex: 2,
+    flexDirection: "column",
     justifyContent: "center",
-    marginLeft: 20,
   },
   message: {
-    color: ColourPalette.white,
+    color: ColourPalette.lightGreen,
     fontSize: 15,
     fontFamily: STATIC_TEXT.font_family2,
     fontWeight: STATIC_TEXT.font_bold2,
