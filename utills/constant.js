@@ -15,6 +15,6 @@ export const STATIC_TEXT = {
   font_bold3: "700",
   micka_has_brushed: "Micka has brushed",
   micka_didnot_finish: "Micka did not finish",
-  arch_at: "arch at",
+  arch_at: "arch",
   micka_finished_brushing: "Mica has finished brushing",
 };
